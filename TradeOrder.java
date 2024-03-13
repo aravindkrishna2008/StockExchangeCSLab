@@ -6,12 +6,12 @@ import java.lang.reflect.*;
  */
 public class TradeOrder
 {
-    private Trader trader;
-    private String symbol;
+    private Trader  trader;
+    private String  symbol;
     private boolean buyOrder;
     private boolean marketOrder;
-    private int numShares;
-    private double price;
+    private int     numShares;
+    private double  price;
 
     // TODO complete class
 
@@ -34,16 +34,16 @@ public class TradeOrder
 
         Field[] fields = this.getClass().getDeclaredFields();
 
-        for ( Field field : fields )
+        for (Field field : fields)
         {
             try
             {
-                str += separator + field.getType().getName() + " "
-                    + field.getName() + ":" + field.get( this );
+                str += separator + field.getType().getName() + " " + field.getName() + ":"
+                    + field.get(this);
             }
-            catch ( IllegalAccessException ex )
+            catch (IllegalAccessException ex)
             {
-                System.out.println( ex );
+                System.out.println(ex);
             }
 
             separator = ", ";
@@ -51,4 +51,59 @@ public class TradeOrder
 
         return str + "]";
     }
+
+
+    public Trader getTrader()
+    {
+        return trader;
+    }
+
+
+    public String getSymbol()
+    {
+        return symbol;
+    }
+
+
+    public boolean isBuy()
+    {
+        return buyOrder;
+    }
+
+
+    public boolean isSell()
+    {
+        return !buyOrder;
+    }
+
+
+    public boolean isMarket()
+    {
+        return marketOrder;
+    }
+
+
+    public boolean isLimit()
+    {
+        return !marketOrder;
+    }
+
+
+    public int getShares()
+    {
+        return numShares;
+    }
+
+
+    public double getPrice()
+    {
+        return price;
+    }
+
+
+    public void subtractShares(int shares)
+    {
+        numShares -= shares;
+    }
+
 }
