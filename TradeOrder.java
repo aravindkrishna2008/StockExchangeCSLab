@@ -13,8 +13,6 @@ public class TradeOrder
     private int     numShares;
     private double  price;
 
-    // TODO complete class
-
     //
     // The following are for test purposes only
     //
