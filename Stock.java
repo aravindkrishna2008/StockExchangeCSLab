@@ -7,61 +7,86 @@ import java.text.DecimalFormat;
  */
 public class Stock
 {
-    public static DecimalFormat money = new DecimalFormat( "0.00" );
+    public static DecimalFormat       money = new DecimalFormat("0.00");
 
-    private String stockSymbol;
-    private String companyName;
-    private double loPrice, hiPrice, lastPrice;
-    private int volume;
+    private String                    stockSymbol;
+    private String                    companyName;
+    private double                    loPrice, hiPrice, lastPrice;
+    private int                       volume;
     private PriorityQueue<TradeOrder> buyOrders, sellOrders;
 
-    // TODO complete class
+    public String getQuote()
+    {
+        String firstLine = companyName + " (" + stockSymbol + ")";
+        String secondLine =
+            "Price: " + lastPrice + "  hi: " + hiPrice + "  lo: " + loPrice + "  vol: " + volume;
+        String thirdLine = "Ask: " + buyOrders.peek().getPrice() + " size: "
+            + buyOrders.peek().getShares() + "  Bid: " + sellOrders.peek().getPrice() + " size: "
+            + sellOrders.peek().getShares();
+        return firstLine + "\n" + secondLine + "\n" + thirdLine + "\n";
 
+    }
     
+
+    public void placeOrder(TradeOrder order)
+    {
+        
+    }
+
+
     //
     // The following are for test purposes only
     //
-    
+
+
     protected String getStockSymbol()
     {
         return stockSymbol;
     }
-    
+
+
     protected String getCompanyName()
     {
         return companyName;
     }
-    
+
+
     protected double getLoPrice()
     {
         return loPrice;
     }
-    
+
+
     protected double getHiPrice()
     {
         return hiPrice;
     }
 
+
     protected double getLastPrice()
     {
         return lastPrice;
     }
-    
+
+
     protected int getVolume()
     {
         return volume;
     }
 
+
     protected PriorityQueue<TradeOrder> getBuyOrders()
     {
         return buyOrders;
     }
-    
+
+
     protected PriorityQueue<TradeOrder> getSellOrders()
     {
         return sellOrders;
     }
-    
+
+
     /**
      * <p>
      * A generic toString implementation that uses reflection to print names and
@@ -78,16 +103,16 @@ public class Stock
 
         Field[] fields = this.getClass().getDeclaredFields();
 
-        for ( Field field : fields )
+        for (Field field : fields)
         {
             try
             {
-                str += separator + field.getType().getName() + " "
-                    + field.getName() + ":" + field.get( this );
+                str += separator + field.getType().getName() + " " + field.getName() + ":"
+                    + field.get(this);
             }
-            catch ( IllegalAccessException ex )
+            catch (IllegalAccessException ex)
             {
-                System.out.println( ex );
+                System.out.println(ex);
             }
 
             separator = ", ";
