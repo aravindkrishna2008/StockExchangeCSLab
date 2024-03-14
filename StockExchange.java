@@ -11,9 +11,6 @@ public class StockExchange
 {
     private Map<String, Stock> listedStocks;
     
-    // TODO complete class
-
-    
     //
     // The following are for test purposes only
     //
@@ -54,5 +51,37 @@ public class StockExchange
         }
 
         return str + "]";
+    }
+    
+    /**
+     * 
+     * @param symbol symbol
+     * @return quote for given stock 
+     */
+    public String getQuote(String symbol)
+    {
+        if( Stock.getQuote(symbol) == null)
+        {
+            return symbol + " not found";
+        }
+        return Stock.getQuote(symbol);
+    }
+
+    public void listStock(String symbol, String name, double price)
+    {
+        Stock stock = new Stock(symbol,name,price);
+        listedStocks.put(symbol, stock);
+    }
+
+    /**
+     * @param order order
+     */
+    public void placeOrder(TradeOrder order)
+    {
+        if( Stock.placeOrder(order) == null)
+        {
+            Trader.receiveMessage(order.toString() + "not found");
+        }
+        return Stock.placeOrder(order);
     }
 }
