@@ -20,19 +20,48 @@ public class Stock
         String firstLine = companyName + " (" + stockSymbol + ")";
         String secondLine =
             "Price: " + lastPrice + "  hi: " + hiPrice + "  lo: " + loPrice + "  vol: " + volume;
-        String thirdLine = "Ask: " + buyOrders.peek().getPrice() + " size: "
-            + buyOrders.peek().getShares() + "  Bid: " + sellOrders.peek().getPrice() + " size: "
-            + sellOrders.peek().getShares();
+        // String thirdLine = "Ask: " + buyOrders.peek().getPrice() + " size: "
+        // + buyOrders.peek().getShares() + " Bid: " +
+        // sellOrders.peek().getPrice() + " size: "
+        // + sellOrders.peek().getShares();
+        String thirdLine = "Ask: ";
+        if (buyOrders.peek() != null)
+        {
+            thirdLine += buyOrders.peek().getPrice() + " size: " + buyOrders.peek().getShares();
+        }
+        else
+        {
+            thirdLine += "none";
+        }
+
+        thirdLine += "  Bid: ";
+        if (sellOrders.peek() != null)
+        {
+            thirdLine += sellOrders.peek().getPrice() + " size: " + sellOrders.peek().getShares();
+        }
+        else
+        {
+            thirdLine += "none";
+        }
+
         return firstLine + "\n" + secondLine + "\n" + thirdLine + "\n";
 
     }
-    
+
 
     public void placeOrder(TradeOrder order)
     {
-        
-    }
+        if (order.isSell())
+        {
+            sellOrders.add(order);
+        }
 
+        if (order.isBuy())
+        {
+            buyOrders.add(order);
+        }
+
+    }
 
     //
     // The following are for test purposes only
