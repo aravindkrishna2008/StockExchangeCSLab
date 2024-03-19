@@ -78,10 +78,10 @@ public class StockExchange
      */
     public void placeOrder(TradeOrder order)
     {
-        if( Stock.placeOrder(order) == null)
+        if(listedStocks.get(order.getSymbol()) == null)
         {
-            Trader.receiveMessage(order.toString() + "not found");
+            order.getTrader().receiveMessage(order.toString() + "not found");
         }
-        return Stock.placeOrder(order);
+        listedStocks.get(order.getSymbol()).placeOrder(order);
     }
 }

@@ -13,6 +13,23 @@ public class TradeOrder
     private int     numShares;
     private double  price;
 
+    public TradeOrder(
+        Trader trader,
+        String symbol,
+        boolean buyOrder,
+        boolean marketOrder,
+        int numShares,
+        double price)
+    {
+        this.trader = trader;
+        this.symbol = symbol;
+        this.buyOrder = buyOrder;
+        this.marketOrder = marketOrder;
+        this.numShares = numShares;
+        this.price = price;
+    }
+
+
     //
     // The following are for test purposes only
     //
