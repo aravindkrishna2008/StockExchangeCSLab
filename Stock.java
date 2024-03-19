@@ -15,6 +15,19 @@ public class Stock
     private int                       volume;
     private PriorityQueue<TradeOrder> buyOrders, sellOrders;
 
+    public Stock(String s, String n, double p)
+    {
+        stockSymbol = s;
+        companyName = n;
+        lastPrice = p;
+        loPrice = p;
+        hiPrice = p;
+        volume = 0;
+        buyOrders = new PriorityQueue<TradeOrder>(new PriceComparator());
+        sellOrders = new PriorityQueue<TradeOrder>(new PriceComparator(false));
+    }
+
+
     public String getQuote()
     {
         String firstLine = companyName + " (" + stockSymbol + ")";

@@ -60,11 +60,11 @@ public class StockExchange
      */
     public String getQuote(String symbol)
     {
-        if( Stock.getQuote(symbol) == null)
+        if(listedStocks.get(symbol) == null)
         {
             return symbol + " not found";
         }
-        return Stock.getQuote(symbol);
+        return listedStocks.get(symbol).getQuote();
     }
 
     public void listStock(String symbol, String name, double price)
