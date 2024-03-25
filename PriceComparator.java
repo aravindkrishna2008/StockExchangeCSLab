@@ -1,3 +1,5 @@
+import static org.junit.Assert.assertEquals;
+
 /**
  * A price comparator for trade orders.
  */
@@ -48,8 +50,12 @@ public class PriceComparator
 
     }
 
-    public static void main(String[] args) {
-        System.out.println(Math.round(-0.1));
-    }
 
+    public static void main(String[] args)
+    {
+        PriceComparator pc = new PriceComparator(true);
+        TradeOrder to1 = new TradeOrder(null, "GGGL", true, false, 123, 20);
+        TradeOrder to2 = new TradeOrder(null, "GGGL", false, false, 123, 10);
+        System.out.println(pc.compare(to1, to2));
+    }
 }

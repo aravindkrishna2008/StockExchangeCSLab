@@ -28,6 +28,11 @@ public class Stock
     }
 
 
+    /**
+     * dsfadkfjsa;kldfas;kldf
+     * @return jdsfklasdf
+     * sdafkjsdflkds;af
+     */
     public String getQuote()
     {
         String firstLine = companyName + " (" + stockSymbol + ")";

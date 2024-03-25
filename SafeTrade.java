@@ -17,6 +17,7 @@ public class SafeTrade
 
         Brokerage safeTrade = new Brokerage( exchange );
         safeTrade.addUser( "stockman", "sesame" );
+        safeTrade.addUser("aravind", "shreyas");
         safeTrade.login( "stockman", "sesame" );
         safeTrade.addUser( "mstrade", "bigsecret" );
         safeTrade.login( "mstrade", "bigsecret" );

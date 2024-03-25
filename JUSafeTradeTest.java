@@ -272,6 +272,40 @@ public class JUSafeTradeTest
 
 
     @Test
+    public void BrokerageaddUserscreenName()
+    {
+        StockExchange stock = new StockExchange();
+        Brokerage b = new Brokerage(stock);
+        int a = b.addUser("ar", "shreyas");
+        assertEquals(a, -1);
+
+    }
+
+
+    @Test
+    public void BrokerageaddUserPass()
+    {
+        StockExchange stock = new StockExchange();
+        Brokerage b = new Brokerage(stock);
+        int a = b.addUser("arsadf", "s");
+        assertEquals(a, -2);
+
+    }
+
+
+    @Test
+    public void BrokerageaddUserScreenNameTaken()
+    {
+        StockExchange stock = new StockExchange();
+        Brokerage b = new Brokerage(stock);
+        b.addUser("aravind", "shreyas");
+        int a = b.addUser("aravind", "shreyas");
+        assertEquals(a, -3);
+
+    }
+
+
+    @Test
     public void BrokerageAddUser()
     {
         StockExchange stock = new StockExchange();
@@ -287,6 +321,40 @@ public class JUSafeTradeTest
         Brokerage b = new Brokerage(stock);
         b.addUser("aravind", "shreyas");
         b.login("aravind", "shreyas");
+    }
+
+
+    @Test
+    public void BrokerageLoginScreenNameNotFOUnd()
+    {
+        StockExchange stock = new StockExchange();
+        Brokerage b = new Brokerage(stock);
+        b.addUser("aravind", "shreyas");
+        int a = b.login("aravind1", "shreyas");
+        assertEquals(a, -1);
+    }
+
+
+    @Test
+    public void BrokerageLoginInvalidPass()
+    {
+        StockExchange stock = new StockExchange();
+        Brokerage b = new Brokerage(stock);
+        b.addUser("aravind", "shreyas");
+        int a = b.login("aravind", "shreyas1");
+        assertEquals(a, -2);
+    }
+
+
+    @Test
+    public void BrokerageLoginAlreadyLoggedIn()
+    {
+        StockExchange stock = new StockExchange();
+        Brokerage b = new Brokerage(stock);
+        b.addUser("aravind", "shreyas");
+        b.login("aravind", "shreyas");
+        int a = b.login("aravind", "shreyas");
+        assertEquals(a, -3);
     }
 
 
@@ -374,6 +442,56 @@ public class JUSafeTradeTest
         TradeOrder order =
             new TradeOrder(new Trader(null, "shreyas", "aravind"), "GGGL", true, false, 1, 1);
         assertEquals(order.getPrice(), 1.0, 0.005);
+    }
+
+
+    @Test
+    public void TraderOrderSubtractShares()
+    {
+        TradeOrder order =
+            new TradeOrder(new Trader(null, "shreyas", "aravind"), "GGGL", true, false, 1, 1);
+        order.subtractShares(1);
+        assertEquals(order.getShares(), 0);
+    }
+
+
+    @Test
+    public void PriceComparatorAscending1()
+    {
+        PriceComparator pc = new PriceComparator(true);
+        TradeOrder to1 = new TradeOrder(null, "GGGL", false, false, 123, 10);
+        TradeOrder to2 = new TradeOrder(null, "GGGL", true, false, 123, 20);
+        assertEquals(pc.compare(to1, to2), -10);
+    }
+
+
+    @Test
+    public void PriceComparatorDescending2()
+    {
+        PriceComparator pc = new PriceComparator(false);
+        TradeOrder to1 = new TradeOrder(null, "GGGL", true, false, 123, 20);
+        TradeOrder to2 = new TradeOrder(null, "GGGL", false, false, 123, 10);
+        assertEquals(pc.compare(to1, to2), -10);
+    }
+
+
+    @Test
+    public void PriceComparatorAscending3()
+    {
+        PriceComparator pc = new PriceComparator(true);
+        TradeOrder to1 = new TradeOrder(null, "GGGL", true, true, 123, 20);
+        TradeOrder to2 = new TradeOrder(null, "GGGL", false, false, 123, 10);
+        assertEquals(pc.compare(to1, to2), -1);
+    }
+
+
+    @Test
+    public void PriceComparatorAscending4()
+    {
+        PriceComparator pc = new PriceComparator(true);
+        TradeOrder to1 = new TradeOrder(null, "GGGL", false, false, 123, 20);
+        TradeOrder to2 = new TradeOrder(null, "GGGL", true, true, 123, 10);
+        assertEquals(pc.compare(to1, to2), 1);
     }
 
 }
