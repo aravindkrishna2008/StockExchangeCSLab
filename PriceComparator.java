@@ -10,7 +10,7 @@ public class PriceComparator
 
     public PriceComparator()
     {
-        asc = true;
+        this.asc = true;
     }
 
 
@@ -37,16 +37,16 @@ public class PriceComparator
 
         double value;
 
-        if (asc)
+        if (this.asc)
         {
-            value = (order1.getPrice() - order2.getPrice());
+            value = Math.round(order1.getPrice() - order2.getPrice());
         }
         else
         {
-            value = (order2.getPrice() - order1.getPrice());
+            value = Math.round(order2.getPrice() - order1.getPrice());
         }
 
-        return (int)Math.round(value);
+        return (int)(value);
 
     }
 

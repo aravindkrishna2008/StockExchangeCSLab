@@ -40,6 +40,8 @@ public class Brokerage
             return -2;
         if (loggedTraders.contains(traders.get(name)))
             return -3;
+        if (!traders.get(name).hasMessages())
+            traders.get(name).receiveMessage("Welcome to SafeTrade!");
         traders.get(name).openWindow();
         loggedTraders.add(traders.get(name));
         return 0;
