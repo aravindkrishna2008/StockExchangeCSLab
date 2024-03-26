@@ -30,8 +30,8 @@ public class Stock
 
     /**
      * dsfadkfjsa;kldfas;kldf
-     * @return jdsfklasdf
-     * sdafkjsdflkds;af
+     * 
+     * @return jdsfklasdf sdafkjsdflkds;af
      */
     public String getQuote()
     {
@@ -69,15 +69,48 @@ public class Stock
 
     public void placeOrder(TradeOrder order)
     {
+        String msg = "New order: ";
+
         if (order.isSell())
         {
-            sellOrders.add(order);
+            buyOrders.add(order);
+            msg += "Sell " + order.getSymbol() + "(" + companyName + ")" + "\n";
+            msg += order.getShares() + "shares at ";
+            if (order.isMarket())
+            {
+                msg += "market";
+            }
+            else
+            {
+                msg += order.getPrice();
+            }
+            buyOrders.add(order);
+
         }
 
         if (order.isBuy())
         {
             buyOrders.add(order);
+            msg += "Buy " + order.getSymbol() + "(" + companyName + ")" + "\n";
+            msg += order.getShares() + "shares at ";
+            if (order.isMarket())
+            {
+                msg += "market";
+            }
+            else
+            {
+                msg += order.getPrice();
+            }
+            buyOrders.add(order);
         }
+        order.getTrader().receiveMessage(msg);
+        executeOrders();
+
+    }
+
+
+    protected void executeOrders()
+    {
 
     }
 
