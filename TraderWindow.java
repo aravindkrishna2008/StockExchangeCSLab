@@ -330,16 +330,16 @@ public class TraderWindow extends JFrame implements ActionListener
     }
 }
 
-//// Provides stub TraderWindow for a trader for testing.
-//public class TraderWindow
-//{
+// Provides stub TraderWindow for a trader for testing.
+// public class TraderWindow
+// {
 //    //private Trader myTrader;
-//    
+   
 //    public TraderWindow( Trader trader )
 //    {
 //        //myTrader = trader;
 //    }
-//
+
 //    public void showMessage( String msg )
 //    {
 //    }
