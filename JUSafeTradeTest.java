@@ -494,4 +494,13 @@ public class JUSafeTradeTest
         assertEquals(pc.compare(to1, to2), 1);
     }
 
+    @Test
+    public void PriceComparatorAscending5()
+    {
+        PriceComparator pc = new PriceComparator(true);
+        TradeOrder to1 = new TradeOrder(null, "GGGL", false, true, 123, 20);
+        TradeOrder to2 = new TradeOrder(null, "GGGL", false, true, 123, 10);
+        assertEquals(pc.compare(to1, to2), 0);
+    }
+
 }

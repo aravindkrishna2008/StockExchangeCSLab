@@ -232,10 +232,10 @@ public class Trader
     }
 
 
-    public static void main(String[] args)
-    {
-        Trader joe = new Trader(null, "Joe", "pwd");
-        System.out.println(joe);
-    }
+    // public static void main(String[] args)
+    // {
+    //     Trader joe = new Trader(null, "Joe", "pwd");
+    //     System.out.println(joe);
+    // }
 
 }

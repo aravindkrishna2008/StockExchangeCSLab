@@ -51,11 +51,11 @@ public class PriceComparator
     }
 
 
-    public static void main(String[] args)
+    /* public static void main(String[] args)
     {
         PriceComparator pc = new PriceComparator(true);
         TradeOrder to1 = new TradeOrder(null, "GGGL", true, false, 123, 20);
         TradeOrder to2 = new TradeOrder(null, "GGGL", false, false, 123, 10);
         System.out.println(pc.compare(to1, to2));
-    }
+    } */
 }
