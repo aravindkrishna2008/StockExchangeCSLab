@@ -45,7 +45,8 @@ public class Stock
         String thirdLine = "Ask: ";
         if (buyOrders.peek() != null)
         {
-            thirdLine += buyOrders.peek().getPrice() + " size: " + buyOrders.peek().getShares();
+            thirdLine += money.format(buyOrders.peek().getPrice()) + " size: "
+                + buyOrders.peek().getShares();
         }
         else
         {
@@ -55,7 +56,8 @@ public class Stock
         thirdLine += "  Bid: ";
         if (sellOrders.peek() != null)
         {
-            thirdLine += sellOrders.peek().getPrice() + " size: " + sellOrders.peek().getShares();
+            thirdLine += "$" + money.format(sellOrders.peek().getPrice()) + " size: "
+                + sellOrders.peek().getShares();
         }
         else
         {
@@ -67,9 +69,20 @@ public class Stock
     }
 
 
+    /**
+     * fdsahjklfsadhljkfaskljdf
+     * 
+     * @param order
+     *            hdflkasfsadlkfhaskldfhksadafklk;dsjf
+     */
     public void placeOrder(TradeOrder order)
     {
         String msg = "New order: ";
+
+        if (order == null)
+        {
+            return;
+        }
 
         if (order.isSell())
         {
@@ -109,91 +122,63 @@ public class Stock
     }
 
 
+    /**
+     * reutnr s
+     */
     protected void executeOrders()
     {
         System.out.println("Executing orders");
         System.out.println("Sell orders: " + sellOrders.toString());
         System.out.println("Buy orders: " + buyOrders.toString());
-        while (!sellOrders.isEmpty() && !buyOrders.isEmpty())
+        while (!sellOrders.isEmpty() && !buyOrders.isEmpty()
+            && sellOrders.peek().getPrice() <= buyOrders.peek().getPrice())
         {
-            TradeOrder topSellOrder = sellOrders.peek();
-            TradeOrder topBuyOrder = buyOrders.peek();
-
-            System.out.println("Top sell order: " + topSellOrder.toString());
-            System.out.println("Top buy order: " + topBuyOrder.toString());
-
-            int shares;
-            double price;
-            if (topSellOrder == null || topBuyOrder == null)
-                return;
-
-            if (topSellOrder.isLimit() && topBuyOrder.isLimit()
-                && (topBuyOrder.getPrice() >= topSellOrder.getPrice()))
+            TradeOrder topSellOrder = sellOrders.poll();
+            TradeOrder topBuyOrder = buyOrders.poll();
+            int shares = 0;
+            double price = 0;
+            if (topSellOrder.getShares() > topBuyOrder.getShares())
             {
-                shares = sharesToBeTraded(topSellOrder.getPrice(), topSellOrder, topBuyOrder);
+                shares = topBuyOrder.getShares();
                 price = topSellOrder.getPrice();
+                sellOrders.add(topSellOrder);
             }
-            else if (topSellOrder.isLimit() || topBuyOrder.isLimit())
+            else if (topSellOrder.getShares() < topBuyOrder.getShares())
             {
-                if (topSellOrder.isLimit())
-                {
-                    shares = sharesToBeTraded(topSellOrder.getPrice(), topSellOrder, topBuyOrder);
-                    price = topSellOrder.getPrice();
-                }
-                else
-                {
-                    shares = sharesToBeTraded(topBuyOrder.getPrice(), topSellOrder, topBuyOrder);
-                    price = topBuyOrder.getPrice();
-                }
-            }
-            else if (topSellOrder.isMarket() && topBuyOrder.isMarket())
-            {
-                shares = sharesToBeTraded(lastPrice, topSellOrder, topBuyOrder);
-                price = lastPrice;
+                shares = topSellOrder.getShares();
+                price = topSellOrder.getPrice();
+                buyOrders.add(topBuyOrder);
             }
             else
             {
-                return;
+                shares = topSellOrder.getShares();
+                price = topSellOrder.getPrice();
             }
 
             topSellOrder.subtractShares(shares);
             topBuyOrder.subtractShares(shares);
 
-            if (topSellOrder.getShares() == 0)
-            {
-                sellOrders.poll();
-            }
-
-            if (topBuyOrder.getShares() == 0)
-            {
-                buyOrders.poll();
-            }
-
             volume += shares;
-            lastPrice = price;
-            if (price < loPrice)
-            {
-                loPrice = price;
-            }
             if (price > hiPrice)
             {
                 hiPrice = price;
             }
+            if (price < loPrice)
+            {
+                loPrice = price;
+            }
 
-            topSellOrder.getTrader().receiveMessage(
-                "You sold: " + shares + " " + stockSymbol + " at " + money.format(price) + " amt "
-                    + money.format(shares * price));
+            lastPrice = price;
+            // topSellOrder.getTrader().receiveMessage(
+            // "You sold: " + shares + " " + stockSymbol + " at " +
+            // money.format(price) + " amt "
+            // + money.format(shares * price));
 
-            topBuyOrder.getTrader().receiveMessage(
-                "You bought: " + shares + " " + stockSymbol + " at " + money.format(price) + " amt "
-                    + money.format(shares * price));
+            // topBuyOrder.getTrader().receiveMessage(
+            // "You bought: " + shares + " " + stockSymbol + " at " +
+            // money.format(price) + " amt "
+            // + money.format(shares * price));
         }
-    }
-
-
-    private int sharesToBeTraded(double price, TradeOrder order1, TradeOrder order2)
-    {
-        return Math.min(order1.getShares(), order2.getShares());
     }
 
     //
