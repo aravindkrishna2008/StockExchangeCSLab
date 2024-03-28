@@ -112,7 +112,6 @@ public class Stock
             {
                 msg += order.getPrice();
             }
-            buyOrders.add(order);
 
         }
 
@@ -129,7 +128,6 @@ public class Stock
             {
                 msg += order.getPrice();
             }
-            buyOrders.add(order);
         }
         order.getTrader().receiveMessage(msg);
         executeOrders();
@@ -152,26 +150,46 @@ public class Stock
             TradeOrder topBuyOrder = buyOrders.poll();
             int shares = 0;
             double price = 0;
-            if (topSellOrder.getShares() > topBuyOrder.getShares())
+
+            if (topSellOrder.isLimit() && topBuyOrder.isLimit())
             {
-                shares = topBuyOrder.getShares();
+                shares = Math.min(topSellOrder.getShares(),
+                    topBuyOrder.getShares());
                 price = topSellOrder.getPrice();
-                sellOrders.add(topSellOrder);
             }
-            else if (topSellOrder.getShares() < topBuyOrder.getShares())
+            else if (topSellOrder.isMarket() && topBuyOrder.isMarket())
             {
-                shares = topSellOrder.getShares();
+                shares = Math.min(topSellOrder.getShares(),
+                    topBuyOrder.getShares());
+                price = lastPrice;
+            }
+            else if (topSellOrder.isMarket() && topBuyOrder.isLimit())
+            {
+                shares = Math.min(topSellOrder.getShares(),
+                    topBuyOrder.getShares());
+                price = topBuyOrder.getPrice();
+            }
+            else if (topSellOrder.isLimit() && topBuyOrder.isMarket())
+            {
+                shares = Math.min(topSellOrder.getShares(),
+                    topBuyOrder.getShares());
                 price = topSellOrder.getPrice();
-                buyOrders.add(topBuyOrder);
             }
             else
-            {
-                shares = topSellOrder.getShares();
-                price = topSellOrder.getPrice();
-            }
+                return;
 
             topSellOrder.subtractShares(shares);
             topBuyOrder.subtractShares(shares);
+
+            if (topSellOrder.getShares() == 0)
+            {
+                sellOrders.remove(topSellOrder);
+            }
+
+            if (topBuyOrder.getShares() == 0)
+            {
+                buyOrders.remove(topBuyOrder);
+            }
 
             volume += shares;
             if (price > hiPrice)
@@ -182,6 +200,8 @@ public class Stock
             {
                 loPrice = price;
             }
+
+            
 
             lastPrice = price;
             topSellOrder.getTrader().receiveMessage(

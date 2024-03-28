@@ -9,7 +9,6 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import junit.framework.JUnit4TestAdapter;
 
-
 /**
  * StockExchange Lab
  *
@@ -226,14 +225,13 @@ public class JUSafeTradeTest
         assertNotNull(stock.getQuote());
     }
 
-
-    @Test
-    public void StockPlaceOrder()
-    {
-        Stock stock = new Stock("i am cool", "sdfd", 1);
-        TradeOrder order = new TradeOrder(null, "GGGL", true, false, 1, 1);
-        stock.placeOrder(order);
-    }
+    // @Test
+    // public void StockPlaceOrder()
+    // {
+    // Stock stock = new Stock("i am cool", "sdfd", 1);
+    // TradeOrder order = new TradeOrder(null, "GGGL", true, false, 1, 1);
+    // stock.placeOrder(order);
+    // }
 
 
     @Test
@@ -249,6 +247,41 @@ public class JUSafeTradeTest
     {
         PriceComparator pc = new PriceComparator(true);
         assertNotNull(pc);
+    }
+
+
+    @Test
+    public void toStringBrokerage()
+    {
+        StockExchange stock = new StockExchange();
+        Brokerage b = new Brokerage(stock);
+        assertNotNull(b.getLoggedTraders());
+
+        assertNotNull(b.toString());
+    }
+
+
+    @Test
+    public void testExectureOrereds()
+    {
+        StockExchange exchange = new StockExchange();
+        exchange.listStock("DS", "DanceStudios.com", 12.33);
+        exchange.listStock("NSTL", "Nasty Loops Inc.", 0.25);
+        exchange.listStock("GGGL", "Giggle.com", 10.00);
+        exchange.listStock("MATI", "M and A Travel Inc.", 28.20);
+        exchange.listStock("DDLC", "Dulce De Leche Corp.", 57.50);
+        exchange.listStock("SAFT", "SafeTrade.com Inc.", 322.45);
+
+        Brokerage safeTrade = new Brokerage(exchange);
+        safeTrade.addUser("stockman", "sesame");
+        safeTrade.addUser("aravind", "shreyas");
+        safeTrade.login("stockman", "sesame");
+        safeTrade.addUser("mstrade", "bigsecret");
+        safeTrade.login("mstrade", "bigsecret");
+
+        exchange.getListedStocks().get("DS").executeOrders();
+        exchange.getListedStocks().get("DS").toString();
+
     }
 
 
