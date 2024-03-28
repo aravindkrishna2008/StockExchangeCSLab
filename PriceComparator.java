@@ -59,14 +59,14 @@ public class PriceComparator
 
         if (this.asc)
         {
-            value = Math.round(order1.getPrice() - order2.getPrice());
+            value = (order1.getPrice() - order2.getPrice() ) * 100;
         }
         else
         {
-            value = Math.round(order2.getPrice() - order1.getPrice());
+            value = (order2.getPrice() - order1.getPrice()) * 100;
         }
 
-        return (int)(value);
+        return (int)Math.round((value));
 
     }
 

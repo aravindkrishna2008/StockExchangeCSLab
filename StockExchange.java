@@ -27,6 +27,13 @@ public class StockExchange
         return listedStocks;
     }
 
+    /**
+     * consturctor
+     */
+    public StockExchange()
+    {
+        listedStocks = new HashMap<String, Stock>();
+    }
 
     /**
      * <p>

@@ -101,9 +101,9 @@ public class Stock
 
         if (order.isSell())
         {
-            buyOrders.add(order);
-            msg += "Sell " + order.getSymbol() + "(" + companyName + ")" + "\n";
-            msg += order.getShares() + "shares at ";
+            sellOrders.add(order);
+            msg += "Sell " + order.getSymbol() + " (" + companyName + ")" + "\n";
+            msg += order.getShares() + " shares at ";
             if (order.isMarket())
             {
                 msg += "market";
@@ -119,8 +119,8 @@ public class Stock
         if (order.isBuy())
         {
             buyOrders.add(order);
-            msg += "Buy " + order.getSymbol() + "(" + companyName + ")" + "\n";
-            msg += order.getShares() + "shares at ";
+            msg += "Buy " + order.getSymbol() + " (" + companyName + ")" + "\n";
+            msg += order.getShares() + " shares at ";
             if (order.isMarket())
             {
                 msg += "market";
@@ -184,15 +184,15 @@ public class Stock
             }
 
             lastPrice = price;
-            // topSellOrder.getTrader().receiveMessage(
-            // "You sold: " + shares + " " + stockSymbol + " at " +
-            // money.format(price) + " amt "
-            // + money.format(shares * price));
+            topSellOrder.getTrader().receiveMessage(
+                "You sold: " + shares + " " + stockSymbol + " at " +
+                money.format(price) + " amt "
+                + money.format(shares * price));
 
-            // topBuyOrder.getTrader().receiveMessage(
-            // "You bought: " + shares + " " + stockSymbol + " at " +
-            // money.format(price) + " amt "
-            // + money.format(shares * price));
+            topBuyOrder.getTrader().receiveMessage(
+                "You bought: " + shares + " " + stockSymbol + " at " +
+                money.format(price) + " amt "
+                + money.format(shares * price));
         }
     }
 
