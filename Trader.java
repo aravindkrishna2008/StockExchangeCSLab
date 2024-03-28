@@ -15,7 +15,8 @@ public class Trader
     implements Comparable<Trader>
 {
     private Brokerage     brokerage;
-    private String        screenName, password;
+    private String        screenName;
+    private String        password;
     private TraderWindow  myWindow;
     private Queue<String> mailbox;
 
@@ -91,7 +92,7 @@ public class Trader
     {
         // use instanceof to avoid potential ClassCastException as indicated
         // in header comment. Note - not part of AP subset
-        if (other == null || !(other instanceof Trader))
+        if (!(other instanceof Trader))
         {
             return false;
         }
@@ -194,6 +195,10 @@ public class Trader
     //
     // The following are for test purposes only
     //
+    /**
+     * mail
+     * @return mail
+     */
     protected Queue<String> mailbox()
     {
         return mailbox;
@@ -222,10 +227,15 @@ public class Trader
             try
             {
                 if (field.getType().getName().equals("Brokerage"))
-                    str += separator + field.getType().getName() + " " + field.getName();
+                {
+                    str += separator + field.getType().getName() 
+                        + " " + field.getName();
+                }
                 else
-                    str += separator + field.getType().getName() + " " + field.getName() + ":"
-                        + field.get(this);
+                {
+                    str += separator + field.getType().getName() + " " 
+                        + field.getName() + ":" + field.get(this);
+                }
             }
             catch (IllegalAccessException ex)
             {

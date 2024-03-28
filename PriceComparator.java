@@ -14,7 +14,7 @@ public class PriceComparator
     /**
      *This is a field
      */
-    boolean asc;
+    private boolean asc;
 
     /**
      * this is price comparotr

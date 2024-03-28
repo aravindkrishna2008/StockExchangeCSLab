@@ -186,7 +186,7 @@ public class Brokerage
             try
             {
                 str += separator + field.getType().getName() + " "
-                 + field.getName() + ":" + field.get(this);
+                    + field.getName() + ":" + field.get(this);
             }
             catch (IllegalAccessException ex)
             {

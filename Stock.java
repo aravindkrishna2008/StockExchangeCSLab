@@ -3,18 +3,36 @@ import java.lang.reflect.*;
 import java.text.DecimalFormat;
 
 /**
- * Represents a stock in the SafeTrade project
+ * StockExchange Lab
+ *
+ * @author Aravind and Shreyas
+ * @version March 2024
+ * @author Period: 11
+ * @author Assignment: StockExchange Lab
+ * @author Sources: None
  */
 public class Stock
 {
-    public static DecimalFormat       money = new DecimalFormat("0.00");
+    /**
+     *decimal format
+     */
+    private static DecimalFormat       money = new DecimalFormat("0.00");
 
     private String                    stockSymbol;
     private String                    companyName;
-    private double                    loPrice, hiPrice, lastPrice;
+    private double                    loPrice;
+    private double                    hiPrice;
+    private double                    lastPrice;
     private int                       volume;
-    private PriorityQueue<TradeOrder> buyOrders, sellOrders;
+    private PriorityQueue<TradeOrder> buyOrders;
+    private PriorityQueue<TradeOrder> sellOrders;
 
+    /**
+     * the snp
+     * @param s s
+     * @param n n 
+     * @param p p
+     */
     public Stock(String s, String n, double p)
     {
         stockSymbol = s;
@@ -29,24 +47,21 @@ public class Stock
 
 
     /**
-     * dsfadkfjsa;kldfas;kldf
+     * getquote
      * 
-     * @return jdsfklasdf sdafkjsdflkds;af
+     * @return quote
      */
     public String getQuote()
     {
         String firstLine = companyName + " (" + stockSymbol + ")";
         String secondLine =
-            "Price: " + lastPrice + "  hi: " + hiPrice + "  lo: " + loPrice + "  vol: " + volume;
-        // String thirdLine = "Ask: " + buyOrders.peek().getPrice() + " size: "
-        // + buyOrders.peek().getShares() + " Bid: " +
-        // sellOrders.peek().getPrice() + " size: "
-        // + sellOrders.peek().getShares();
+            "Price: " + lastPrice + "  hi: " + 
+                hiPrice + "  lo: " + loPrice + "  vol: " + volume;
         String thirdLine = "Ask: ";
         if (buyOrders.peek() != null)
         {
-            thirdLine += money.format(buyOrders.peek().getPrice()) + " size: "
-                + buyOrders.peek().getShares();
+            thirdLine += money.format(buyOrders.peek().getPrice())
+                 + " size: " + buyOrders.peek().getShares();
         }
         else
         {
@@ -56,8 +71,8 @@ public class Stock
         thirdLine += "  Bid: ";
         if (sellOrders.peek() != null)
         {
-            thirdLine += "$" + money.format(sellOrders.peek().getPrice()) + " size: "
-                + sellOrders.peek().getShares();
+            thirdLine += "$" + money.format(sellOrders.peek().getPrice())
+                + " size: " + sellOrders.peek().getShares();
         }
         else
         {
@@ -70,10 +85,10 @@ public class Stock
 
 
     /**
-     * fdsahjklfsadhljkfaskljdf
+     * po
      * 
      * @param order
-     *            hdflkasfsadlkfhaskldfhksadafklk;dsjf
+     *            order
      */
     public void placeOrder(TradeOrder order)
     {
@@ -186,48 +201,74 @@ public class Stock
     //
 
 
+    /**
+     * stocks
+     * @return stcok s
+     */
     protected String getStockSymbol()
     {
         return stockSymbol;
     }
 
 
+    /**
+     * name
+     * @return comp name
+     */
     protected String getCompanyName()
     {
         return companyName;
     }
 
-
+    /**
+     * name
+     * @return comp name
+     */
     protected double getLoPrice()
     {
         return loPrice;
     }
 
-
+    /**
+     * name
+     * @return comp name
+     */
     protected double getHiPrice()
     {
         return hiPrice;
     }
 
-
+    /**
+     * name
+     * @return comp name
+     */
     protected double getLastPrice()
     {
         return lastPrice;
     }
 
-
+    /**
+     * name
+     * @return comp name
+     */
     protected int getVolume()
     {
         return volume;
     }
 
-
+    /**
+     * name
+     * @return comp name
+     */
     protected PriorityQueue<TradeOrder> getBuyOrders()
     {
         return buyOrders;
     }
 
-
+    /**
+     * name
+     * @return comp name
+     */
     protected PriorityQueue<TradeOrder> getSellOrders()
     {
         return sellOrders;
@@ -254,8 +295,8 @@ public class Stock
         {
             try
             {
-                str += separator + field.getType().getName() + " " + field.getName() + ":"
-                    + field.get(this);
+                str += separator + field.getType().getName() + 
+                    " " + field.getName() + ":" + field.get(this);
             }
             catch (IllegalAccessException ex)
             {
