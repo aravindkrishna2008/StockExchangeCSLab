@@ -1,8 +1,13 @@
 import java.lang.reflect.*;
 
 /**
- * Represents a buy or sell order for trading a given number of shares of a
- * specified stock.
+ * StockExchange Lab
+ *
+ * @author Aravind and Shreyas
+ * @version March 2024
+ * @author Period: 11
+ * @author Assignment: StockExchange Lab
+ * @author Sources: None
  */
 public class TradeOrder
 {
@@ -13,6 +18,15 @@ public class TradeOrder
     private int     numShares;
     private double  price;
 
+    /**
+     * tradorder constructer 
+     * @param trader t
+     * @param symbol s
+     * @param buyOrder bo
+     * @param marketOrder mo
+     * @param numShares ns
+     * @param price p
+     */
     public TradeOrder(
         Trader trader,
         String symbol,
@@ -53,8 +67,8 @@ public class TradeOrder
         {
             try
             {
-                str += separator + field.getType().getName() + " " + field.getName() + ":"
-                    + field.get(this);
+                str += separator + field.getType().getName() + 
+                    " " + field.getName() + ":" + field.get(this);
             }
             catch (IllegalAccessException ex)
             {
@@ -68,54 +82,83 @@ public class TradeOrder
     }
 
 
+    /**
+     * trader
+     * @return trader
+     */
     public Trader getTrader()
     {
         return trader;
     }
 
 
+    /**
+     * symbol
+     * @return the stmbol
+     */
     public String getSymbol()
     {
         return symbol;
     }
 
-
+    /**
+     * buy
+     * @return is it buy
+     */
     public boolean isBuy()
     {
         return buyOrder;
     }
 
-
+    /**
+     * symbol
+     * @return the stmbol
+     */
     public boolean isSell()
     {
         return !buyOrder;
     }
 
-
+    /**
+     * market
+     * @return market
+     */
     public boolean isMarket()
     {
         return marketOrder;
     }
 
-
+    /**
+     * limit
+     * @return the limit
+     */
     public boolean isLimit()
     {
         return !marketOrder;
     }
 
-
+    /**
+     * shares
+     * @return the shares
+     */
     public int getShares()
     {
         return numShares;
     }
 
-
+    /**
+     * price
+     * @return price
+     */
     public double getPrice()
     {
         return price;
     }
 
-
+    /**
+     * sub shares
+     * @param shares shares
+     */
     public void subtractShares(int shares)
     {
         numShares -= shares;

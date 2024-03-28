@@ -1,8 +1,15 @@
 import java.lang.reflect.*;
 import java.util.*;
 
+
 /**
- * Represents a stock trader.
+ * StockExchange Lab
+ *
+ * @author Aravind and Shreyas
+ * @version March 2024
+ * @author Period: 11
+ * @author Assignment: StockExchange Lab
+ * @author Sources: None
  */
 public class Trader
     implements Comparable<Trader>
@@ -231,11 +238,10 @@ public class Trader
         return str + "]";
     }
 
-
     // public static void main(String[] args)
     // {
-    //     Trader joe = new Trader(null, "Joe", "pwd");
-    //     System.out.println(joe);
+    // Trader joe = new Trader(null, "Joe", "pwd");
+    // System.out.println(joe);
     // }
 
 }

@@ -2,10 +2,13 @@ import java.lang.reflect.*;
 import java.util.*;
 
 /**
- * Represents a stock exchange. A <code>StockExchange</code> keeps a
- * <code>HashMap</code> of stocks, keyed by a stock symbol. It has methods to
- * list a new stock, request a quote for a given stock symbol, and to place a
- * specified trade order.
+ * StockExchange Lab
+ *
+ * @author Aravind and Shreyas
+ * @version March 2024
+ * @author Period: 11
+ * @author Assignment: StockExchange Lab
+ * @author Sources: None
  */
 public class StockExchange
 {
@@ -14,6 +17,11 @@ public class StockExchange
     //
     // The following are for test purposes only
     //
+    /**
+     * the listed stocks
+     * 
+     * @return map
+     */
     protected Map<String, Stock> getListedStocks()
     {
         return listedStocks;
@@ -40,8 +48,8 @@ public class StockExchange
         {
             try
             {
-                str += separator + field.getType().getName() + " " + field.getName() + ":"
-                    + field.get(this);
+                str += separator + field.getType().getName() + " " +
+                    field.getName() + ":" + field.get(this);
             }
             catch (IllegalAccessException ex)
             {
@@ -70,6 +78,12 @@ public class StockExchange
     }
 
 
+    /**
+     * the list stock method
+     * @param symbol symbol
+     * @param name name
+     * @param price price
+     */
     public void listStock(String symbol, String name, double price)
     {
         Stock stock = new Stock(symbol, name, price);
@@ -89,7 +103,8 @@ public class StockExchange
     {
         if (listedStocks.get(order.getSymbol()) == null)
         {
-            order.getTrader().receiveMessage((order.getSymbol() + " not found"));
+            order.getTrader().receiveMessage((order.getSymbol() 
+                + " not found"));
             return;
         }
         listedStocks.get(order.getSymbol()).placeOrder(order);

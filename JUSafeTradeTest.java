@@ -9,17 +9,17 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import junit.framework.JUnit4TestAdapter;
 
+
 /**
- * SafeTrade tests: TradeOrder PriceComparator Trader Brokerage StockExchange
- * Stock
+ * StockExchange Lab
  *
- * @author TODO Name of principal author
- * @author TODO Name of group member
- * @author TODO Name of group member
- * @version TODO date
- * @author Assignment: JM Chapter 19 - SafeTrade
- * @author Sources: TODO sources
+ * @author Aravind and Shreyas
+ * @version March 2024
+ * @author Period: 11
+ * @author Assignment: StockExchange Lab
+ * @author Sources: None
  */
+
 public class JUSafeTradeTest
 {
     // --Test TradeOrder
@@ -493,6 +493,7 @@ public class JUSafeTradeTest
         TradeOrder to2 = new TradeOrder(null, "GGGL", true, true, 123, 10);
         assertEquals(pc.compare(to1, to2), 1);
     }
+
 
     @Test
     public void PriceComparatorAscending5()

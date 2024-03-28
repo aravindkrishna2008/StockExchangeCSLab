@@ -1,25 +1,45 @@
-import static org.junit.Assert.assertEquals;
 
 /**
- * A price comparator for trade orders.
+ * StockExchange Lab
+ *
+ * @author Aravind and Shreyas
+ * @version March 2024
+ * @author Period: 11
+ * @author Assignment: StockExchange Lab
+ * @author Sources: None
  */
 public class PriceComparator
     implements java.util.Comparator<TradeOrder>
 {
+    /**
+     *This is a field
+     */
     boolean asc;
 
+    /**
+     * this is price comparotr
+     */
     public PriceComparator()
     {
         this.asc = true;
     }
 
 
+    /**
+     * price c two
+     * @param asc asc
+     */
     public PriceComparator(boolean asc)
     {
         this.asc = asc;
     }
 
-
+    /**
+     * price c two
+     * @param order1 order
+     * @param order2 order
+     * @return comparison
+     */
     public int compare(TradeOrder order1, TradeOrder order2)
     {
         if (order1.isMarket() && order2.isMarket())
@@ -50,12 +70,10 @@ public class PriceComparator
 
     }
 
-
-    /* public static void main(String[] args)
-    {
-        PriceComparator pc = new PriceComparator(true);
-        TradeOrder to1 = new TradeOrder(null, "GGGL", true, false, 123, 20);
-        TradeOrder to2 = new TradeOrder(null, "GGGL", false, false, 123, 10);
-        System.out.println(pc.compare(to1, to2));
-    } */
+    /*
+     * public static void main(String[] args) { PriceComparator pc = new
+     * PriceComparator(true); TradeOrder to1 = new TradeOrder(null, "GGGL",
+     * true, false, 123, 20); TradeOrder to2 = new TradeOrder(null, "GGGL",
+     * false, false, 123, 10); System.out.println(pc.compare(to1, to2)); }
+     */
 }

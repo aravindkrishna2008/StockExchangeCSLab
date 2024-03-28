@@ -4,21 +4,32 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 /**
- *  Provides GUI for registering and logging in users.
+ * StockExchange Lab
+ *
+ * @author Aravind and Shreyas
+ * @version March 2024
+ * @author Period: 11
+ * @author Assignment: StockExchange Lab
+ * @author Sources: None
  */
-public class LoginWindow extends JFrame
-{
-  private static JFrame thisWindow;
-  private static Login server;
 
-  private JTextField nameField;
+public class LoginWindow
+  extends JFrame
+{
+  private static JFrame  thisWindow;
+  private static Login   server;
+
+  private JTextField     nameField;
   private JPasswordField passwordField;
 
   /**
-   *  Constructs a new login window.
-   *  @param title title bar text.
-   *  @param server an object that keeps track of all the registered and
-   *  logged-in users.
+   * Constructs a new login window.
+   * 
+   * @param title
+   *          title bar text.
+   * @param server
+   *          an object that keeps track of all the registered and logged-in
+   *          users.
    */
   public LoginWindow(String title, Login server)
   {
@@ -60,10 +71,11 @@ public class LoginWindow extends JFrame
   }
 
   /******************************************************************/
-  /***      passwordField and "Login" button events handling      ***/
+  /*** passwordField and "Login" button events handling ***/
   /******************************************************************/
 
-  private class LoginListener implements ActionListener
+  private class LoginListener
+    implements ActionListener
   {
     public void actionPerformed(ActionEvent e)
     {
@@ -74,11 +86,12 @@ public class LoginWindow extends JFrame
       passwordField.setText("");
     }
 
+
     private void tryLogin(String name, String password)
     {
       String errorMsg = "";
       int result = server.login(name, password);
-      
+
       if (result < 0)
       {
         if (result == -1)
@@ -90,22 +103,26 @@ public class LoginWindow extends JFrame
         else
           errorMsg = "Unknown error code";
 
-        JOptionPane.showMessageDialog(thisWindow, errorMsg,
-                        "Login failed", JOptionPane.ERROR_MESSAGE);
+        JOptionPane
+          .showMessageDialog(thisWindow, errorMsg, "Login failed", JOptionPane.ERROR_MESSAGE);
       }
     }
   }
 
+
   /******************************************************************/
-  /*********      "New user..." button events handling      *********/
+  /********* "New user..." button events handling *********/
   /******************************************************************/
 
-  private class RegistrationListener implements ActionListener
+  private class RegistrationListener
+    implements ActionListener
   {
     public void actionPerformed(ActionEvent e)
     {
-      while (!registered());
+      while (!registered())
+        ;
     }
+
 
     private boolean registered()
     {
@@ -126,12 +143,17 @@ public class LoginWindow extends JFrame
       fieldsPanel.add(regPasswordLabel2);
       fieldsPanel.add(regPasswordField2);
 
-      final String optionNames[] = {"Register", "Cancel"};
+      final String optionNames[] = { "Register", "Cancel" };
 
-      if (JOptionPane.showOptionDialog(thisWindow, fieldsPanel, 
-          "New user registration", JOptionPane.OK_CANCEL_OPTION, 
-          JOptionPane.PLAIN_MESSAGE, null, optionNames, 
-          optionNames[0]) != 0)
+      if (JOptionPane.showOptionDialog(
+        thisWindow,
+        fieldsPanel,
+        "New user registration",
+        JOptionPane.OK_CANCEL_OPTION,
+        JOptionPane.PLAIN_MESSAGE,
+        null,
+        optionNames,
+        optionNames[0]) != 0)
         return true;  // User pressed "Cancel"
 
       String name = regNameField.getText().trim().toLowerCase();
@@ -163,16 +185,22 @@ public class LoginWindow extends JFrame
 
       if (result != 0)
       {
-        JOptionPane.showMessageDialog(thisWindow, errorMsg,
-                    "Registration failed", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(
+          thisWindow,
+          errorMsg,
+          "Registration failed",
+          JOptionPane.ERROR_MESSAGE);
         nameField.setText("");
         passwordField.setText("");
         return false;
       }
       else
       {
-        JOptionPane.showMessageDialog(thisWindow, "Added " + name,
-                    "Registration successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(
+          thisWindow,
+          "Added " + name,
+          "Registration successful",
+          JOptionPane.INFORMATION_MESSAGE);
         nameField.setText(name);
         passwordField.setText(password);
         return true;
