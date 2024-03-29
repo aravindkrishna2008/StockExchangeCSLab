@@ -94,15 +94,11 @@ public class Stock
     {
         String msg = "New order: ";
 
-        if (order == null)
-        {
-            return;
-        }
-
         if (order.isSell())
         {
             sellOrders.add(order);
-            msg += "Sell " + order.getSymbol() + " (" + companyName + ")" + "\n";
+            msg += "Sell " + order.getSymbol() 
+                + " (" + companyName + ")" + "\n";
             msg += order.getShares() + " shares at ";
             if (order.isMarket())
             {
@@ -118,7 +114,8 @@ public class Stock
         if (order.isBuy())
         {
             buyOrders.add(order);
-            msg += "Buy " + order.getSymbol() + " (" + companyName + ")" + "\n";
+            msg += "Buy " + order.getSymbol() 
+                + " (" + companyName + ")" + "\n";
             msg += order.getShares() + " shares at ";
             if (order.isMarket())
             {
@@ -175,8 +172,9 @@ public class Stock
                     topBuyOrder.getShares());
                 price = topSellOrder.getPrice();
             }
-            else
+            else {
                 return;
+            }
 
             topSellOrder.subtractShares(shares);
             topBuyOrder.subtractShares(shares);

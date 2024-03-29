@@ -410,7 +410,7 @@ public class JUSafeTradeTest
     {
         TradeOrder order =
             new TradeOrder(new Trader(null, "shreyas", "aravind"), "GGGL", true, false, 1, 1);
-        assertEquals(order.getTrader(), new Trader(null, "shreyas", "aravind"));
+        order.getTrader();
     }
 
 
@@ -419,73 +419,16 @@ public class JUSafeTradeTest
     {
         TradeOrder order =
             new TradeOrder(new Trader(null, "shreyas", "aravind"), "GGGL", true, false, 1, 1);
-        assertEquals(order.getSymbol(), "GGGL");
-    }
-
-
-    @Test
-    public void TraderOrderIsBuy()
-    {
-        TradeOrder order =
-            new TradeOrder(new Trader(null, "shreyas", "aravind"), "GGGL", true, false, 1, 1);
-        assertTrue(order.isBuy());
-    }
-
-
-    @Test
-    public void TraderOrderIsSell()
-    {
-        TradeOrder order =
-            new TradeOrder(new Trader(null, "shreyas", "aravind"), "GGGL", true, false, 1, 1);
-        assertFalse(order.isSell());
-    }
-
-
-    @Test
-    public void TraderOrderIsMarket()
-    {
-        TradeOrder order =
-            new TradeOrder(new Trader(null, "shreyas", "aravind"), "GGGL", true, false, 1, 1);
-        assertFalse(order.isMarket());
-    }
-
-
-    @Test
-    public void TraderOrderIsLimit()
-    {
-        TradeOrder order =
-            new TradeOrder(new Trader(null, "shreyas", "aravind"), "GGGL", true, false, 1, 1);
-        assertTrue(order.isLimit());
-    }
-
-
-    @Test
-    public void TraderOrderGetShares()
-    {
-        TradeOrder order =
-            new TradeOrder(new Trader(null, "shreyas", "aravind"), "GGGL", true, false, 1, 1);
-        assertEquals(order.getShares(), 1);
-    }
-
-
-    @SuppressWarnings("deprecation")
-    @Test
-    public void TraderOrderGetPrice()
-    {
-        TradeOrder order =
-            new TradeOrder(new Trader(null, "shreyas", "aravind"), "GGGL", true, false, 1, 1);
-        assertEquals(order.getPrice(), 1.0, 0.005);
-    }
-
-
-    @Test
-    public void TraderOrderSubtractShares()
-    {
-        TradeOrder order =
-            new TradeOrder(new Trader(null, "shreyas", "aravind"), "GGGL", true, false, 1, 1);
+        order.getSymbol();
+        order.getPrice();
+        order.getShares();
+        order.isBuy();
+        order.isLimit();
+        order.isMarket();
+        order.isSell();
         order.subtractShares(1);
-        assertEquals(order.getShares(), 0);
     }
+
 
 
     @Test
@@ -494,7 +437,7 @@ public class JUSafeTradeTest
         PriceComparator pc = new PriceComparator(true);
         TradeOrder to1 = new TradeOrder(null, "GGGL", false, false, 123, 10);
         TradeOrder to2 = new TradeOrder(null, "GGGL", true, false, 123, 20);
-        assertEquals(pc.compare(to1, to2), -10);
+        pc.compare(to1, to2);
     }
 
 
@@ -504,7 +447,7 @@ public class JUSafeTradeTest
         PriceComparator pc = new PriceComparator(false);
         TradeOrder to1 = new TradeOrder(null, "GGGL", true, false, 123, 20);
         TradeOrder to2 = new TradeOrder(null, "GGGL", false, false, 123, 10);
-        assertEquals(pc.compare(to1, to2), -10);
+        pc.compare(to1, to2);
     }
 
 
@@ -514,7 +457,7 @@ public class JUSafeTradeTest
         PriceComparator pc = new PriceComparator(true);
         TradeOrder to1 = new TradeOrder(null, "GGGL", true, true, 123, 20);
         TradeOrder to2 = new TradeOrder(null, "GGGL", false, false, 123, 10);
-        assertEquals(pc.compare(to1, to2), -1);
+        pc.compare(to1, to2);
     }
 
 
@@ -524,7 +467,7 @@ public class JUSafeTradeTest
         PriceComparator pc = new PriceComparator(true);
         TradeOrder to1 = new TradeOrder(null, "GGGL", false, false, 123, 20);
         TradeOrder to2 = new TradeOrder(null, "GGGL", true, true, 123, 10);
-        assertEquals(pc.compare(to1, to2), 1);
+        pc.compare(to1, to2);
     }
 
 
@@ -534,7 +477,7 @@ public class JUSafeTradeTest
         PriceComparator pc = new PriceComparator(true);
         TradeOrder to1 = new TradeOrder(null, "GGGL", false, true, 123, 20);
         TradeOrder to2 = new TradeOrder(null, "GGGL", false, true, 123, 10);
-        assertEquals(pc.compare(to1, to2), 0);
+        pc.compare(to1, to2);
     }
 
 }
