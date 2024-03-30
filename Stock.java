@@ -137,80 +137,74 @@ public class Stock
      */
     protected void executeOrders()
     {
-        System.out.println("Executing orders");
-        System.out.println("Sell orders: " + sellOrders.toString());
-        System.out.println("Buy orders: " + buyOrders.toString());
-        while (!sellOrders.isEmpty() && !buyOrders.isEmpty()
-            && sellOrders.peek().getPrice() <= buyOrders.peek().getPrice())
+        while (!sellOrders.isEmpty() && !buyOrders.isEmpty())
         {
-            TradeOrder topSellOrder = sellOrders.poll();
-            TradeOrder topBuyOrder = buyOrders.poll();
-            int shares = 0;
-            double price = 0;
+            TradeOrder topSellOrder = sellOrders.peek();
+            TradeOrder topBuyOrder = buyOrders.peek();
+
+            if (topSellOrder.isLimit() && topBuyOrder.isLimit()
+                && topBuyOrder.getPrice() < topSellOrder.getPrice())
+            {
+                break;
+            }
+
+            int sharesToTrade = Math.min(topSellOrder.getShares(), 
+                topBuyOrder.getShares());
+            double tradePrice;
 
             if (topSellOrder.isLimit() && topBuyOrder.isLimit())
             {
-                shares = Math.min(topSellOrder.getShares(),
-                    topBuyOrder.getShares());
-                price = topSellOrder.getPrice();
+                tradePrice = topSellOrder.getPrice();
             }
             else if (topSellOrder.isMarket() && topBuyOrder.isMarket())
             {
-                shares = Math.min(topSellOrder.getShares(),
-                    topBuyOrder.getShares());
-                price = lastPrice;
+                tradePrice = lastPrice;
             }
-            else if (topSellOrder.isMarket() && topBuyOrder.isLimit())
+            else if (topSellOrder.isMarket())
             {
-                shares = Math.min(topSellOrder.getShares(),
-                    topBuyOrder.getShares());
-                price = topBuyOrder.getPrice();
+                tradePrice = topBuyOrder.getPrice();
             }
-            else if (topSellOrder.isLimit() && topBuyOrder.isMarket())
+            else
             {
-                shares = Math.min(topSellOrder.getShares(),
-                    topBuyOrder.getShares());
-                price = topSellOrder.getPrice();
-            }
-            else {
-                return;
+                tradePrice = topSellOrder.getPrice();
             }
 
-            topSellOrder.subtractShares(shares);
-            topBuyOrder.subtractShares(shares);
+            topSellOrder.subtractShares(sharesToTrade);
+            topBuyOrder.subtractShares(sharesToTrade);
 
             if (topSellOrder.getShares() == 0)
             {
-                sellOrders.remove(topSellOrder);
+                sellOrders.remove();
             }
 
             if (topBuyOrder.getShares() == 0)
             {
-                buyOrders.remove(topBuyOrder);
+                buyOrders.remove();
             }
 
-            volume += shares;
-            if (price > hiPrice)
+            volume += sharesToTrade;
+            if (tradePrice > hiPrice)
             {
-                hiPrice = price;
+                hiPrice = tradePrice;
             }
-            if (price < loPrice)
+            if (tradePrice < loPrice)
             {
-                loPrice = price;
+                loPrice = tradePrice;
             }
 
-            
+            lastPrice = tradePrice;
 
-            lastPrice = price;
-            topSellOrder.getTrader().receiveMessage(
-                "You sold: " + shares + " " + stockSymbol + " at " +
-                money.format(price) + " amt "
-                + money.format(shares * price));
+            String sellMessage = "You sold: "
+                + sharesToTrade + " " + stockSymbol + " at "
+                + money.format(tradePrice) + " amt " 
+                + money.format(sharesToTrade * tradePrice);
+            String buyMessage = "You bought: "
+                + sharesToTrade + " " + stockSymbol + " at "
+                + money.format(tradePrice) + " amt " 
+                + money.format(sharesToTrade * tradePrice);
 
-            topBuyOrder.getTrader().receiveMessage(
-                "You bought: " + shares + " " + stockSymbol + " at " +
-                money.format(price) + " amt "
-                + money.format(shares * price));
+            topSellOrder.getTrader().receiveMessage(sellMessage);
+            topBuyOrder.getTrader().receiveMessage(buyMessage);
         }
     }
 
